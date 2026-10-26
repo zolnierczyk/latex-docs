@@ -1,0 +1,389 @@
+% ============================================================================
+% PAMIĘTNICZEK - A5 Yearly Calendar & Journal with Habit Tracker
+% Configured for year: 2026
+% ============================================================================
+
+\documentclass[
+    a5paper,
+    oneside,
+    openany,
+    10pt
+]{memoir}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,polish]{babel}
+\usepackage[polish]{translator}
+\usepackage{pgfcalendar}
+\usepackage{datetime2}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{courier}
+
+% ============================================================================
+% SETTINGS
+% ============================================================================
+
+% Memoir page setup for A5 paper
+\setstocksize{210mm}{148mm}  % A5 size
+\settrimmedsize{210mm}{148mm}{*}
+\settrims{0pt}{0pt}
+\settypeblocksize{170mm}{105mm}{*}
+\setulmargins{15mm}{*}{*}
+\setlrmargins{15mm}{*}{*}
+\checkandfixthelayout
+
+\pagestyle{empty}
+\hbadness=10000
+\renewcommand{\familydefault}{\ttdefault}
+\newcommand{\SetYear}{2026}
+\newcommand{\StartDate}{2026-01-01}
+\newcommand{\EndDate}{2026-12-31}
+
+% ============================================================================
+% TITLE PAGE
+% ============================================================================
+
+\newcommand{\MakeTitlePage}{%
+    \begin{center}
+        \vspace*{40mm}
+        {\fontsize{48}{56}\selectfont\bfseries \SetYear} \\
+        \vspace{35mm}
+        {\fontsize{28}{32}\selectfont\bfseries Dziennik} \\
+        \vspace{25mm}
+        {\fontsize{11}{14}\selectfont Na plany i przemyślenia każdego dnia} \\
+        \vspace{15mm}
+        % \vfill
+        % {\fontsize{8}{10}\selectfont \today}
+    \end{center}
+    \clearpage
+}
+
+% ============================================================================
+% YEARLY CALENDAR OVERVIEW
+% ============================================================================
+
+\newcommand{\MakeYearlyCalendarPage}{%
+    \thispagestyle{empty}
+    {\fontsize{14}{16}\selectfont\bfseries \SetYear\ — Przegląd roku}
+    \vspace{4mm}
+    \scriptsize
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \hline
+        \multicolumn{2}{|c|}{\bfseries Styczeń -- Grudzień \SetYear} \\
+        \hline
+    \end{tabularx}
+    \vspace{2mm}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+        \hline
+        \centering\bfseries Sty & \centering\bfseries Lut & \centering\bfseries Mar & \centering\bfseries Kwi & \centering\bfseries Maj & \centering\bfseries Cze \\
+        \hline
+        \centering 31 dni & \centering 28 dni & \centering 31 dni & \centering 30 dni & \centering 31 dni & \centering 30 dni \\
+        \hline
+        \centering\bfseries Lip & \centering\bfseries Sie & \centering\bfseries Wrz & \centering\bfseries Paź & \centering\bfseries Lis & \centering\bfseries Gdu \\
+        \hline
+        \centering 31 dni & \centering 31 dni & \centering 30 dni & \centering 31 dni & \centering 30 dni & \centering 31 dni \\
+        \hline
+    \end{tabularx}
+    \vspace{8mm}
+    \normalsize
+    {\bfseries Ważne daty i milestones:}
+    \vspace{2mm}
+    \begin{tabularx}{\textwidth}{lX}
+        Początek roku: & \hrule \\[1mm]
+        Cele na rok: & \hrule \\[4mm]
+        & \hrule \\[4mm]
+        Ważne wydarzenia: & \hrule \\[4mm]
+    \end{tabularx}
+    \clearpage
+}
+
+% ============================================================================
+% HABIT TRACKER MATRICES
+% ============================================================================
+
+\newcommand{\MakeHabitTrackerMatrixFirst}{%
+    \thispagestyle{empty}
+    {\fontsize{12}{14}\selectfont\bfseries Tracker Nawyków — Tygodnie 1–26}
+    \vspace{3mm}
+    \tiny
+    \begin{tabularx}{\textwidth}{|p{18mm}|*{26}{>{\centering\arraybackslash}p{3.5mm}|}p{18mm}|}
+        \hline
+        \multirow{2}{18mm}{\centering\textbf{Nawyk}} & \multicolumn{26}{c|}{\textbf{Numer tygodnia}} & \multirow{2}{18mm}{\centering\textbf{Nawyk}} \\
+        & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & \\
+        \hline
+        \centering$\square$ 1 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 1 \\
+        \hline
+        \centering$\square$ 2 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 2 \\
+        \hline
+        \centering$\square$ 3 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 3 \\
+        \hline
+        \centering$\square$ 4 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 4 \\
+        \hline
+        \centering$\square$ 5 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 5 \\
+        \hline
+        \centering$\square$ 6 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 6 \\
+        \hline
+        \centering$\square$ 7 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 7 \\
+        \hline
+        \centering$\square$ 8 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 8 \\
+        \hline
+    \end{tabularx}
+    \normalsize
+    \clearpage
+}
+
+\newcommand{\MakeHabitTrackerMatrixSecond}{%
+    \thispagestyle{empty}
+    {\fontsize{12}{14}\selectfont\bfseries Tracker Nawyków — Tygodnie 27–52}
+    \vspace{3mm}
+    \tiny
+    \begin{tabularx}{\textwidth}{|p{18mm}|*{26}{>{\centering\arraybackslash}p{3.5mm}|}p{18mm}|}
+        \hline
+        \multirow{2}{18mm}{\centering\textbf{Nawyk}} & \multicolumn{26}{c|}{\textbf{Numer tygodnia}} & \multirow{2}{18mm}{\centering\textbf{Nawyk}} \\
+        & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & 36 & 37 & 38 & 39 & 40 & 41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 & 49 & 50 & 51 & 52 & \\
+        \hline
+        \centering$\square$ 1 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 1 \\
+        \hline
+        \centering$\square$ 2 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 2 \\
+        \hline
+        \centering$\square$ 3 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 3 \\
+        \hline
+        \centering$\square$ 4 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 4 \\
+        \hline
+        \centering$\square$ 5 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 5 \\
+        \hline
+        \centering$\square$ 6 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 6 \\
+        \hline
+        \centering$\square$ 7 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 7 \\
+        \hline
+        \centering$\square$ 8 & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ & \centering$\square$ 8 \\
+        \hline
+    \end{tabularx}
+    \normalsize
+    \clearpage
+}
+
+% ============================================================================
+% MONTHLY PLAN PAGE
+% ============================================================================
+
+\newcommand{\MakeRules}[1]{%
+    \newcount\rulecount
+    \rulecount=0
+    \loop
+    \ifnum\rulecount<#1
+        \rule{\textwidth}{0.2pt} \\
+        \advance\rulecount by 1
+    \repeat
+}
+
+\newcommand{\MakeMonthlyPlanPage}[2]{%
+    \section{Plan Miesięczny - \pgfcalendarmonthname{#1} #2}
+    \subsection{Notatki:}
+    \MakeRules{5}
+    \subsection{Cele:}
+    \MakeRules{5}
+
+    \clearpage
+}
+
+% ============================================================================
+% DAILY PAGE
+% ============================================================================
+
+\newcommand{\MakeDailyPage}[4]{%
+    \section{\DTMdate{#1-#2-#3} \pgfcalendarweekdayname{#4}}
+    \subsection{Notatki:}
+    \MakeRules{5}
+    \subsection{Refleksje:}
+    \MakeRules{5}
+
+    \begin{tabularx}{\textwidth}{lX}
+        \small\textbf{Nastrój:} & 
+        $\square$ Smutny \quad $\square$ Neutralny \quad $\square$ Dobry \quad $\square$ Świetny \\[1mm]
+        \small\textbf{Energia:} & 
+        $\square$ Niska \quad $\square$ Średnia \quad $\square$ Wysoka \\
+    \end{tabularx}
+
+    \clearpage
+    
+}
+
+% ============================================================================
+% WEEKLY SUMMARY PAGE
+% ============================================================================
+
+\newcommand{\MakeWeeklySummaryPage}[3]{%
+    \section{Podsumowanie Tygodnia — }
+    \subsection{Osiągnięcia:}
+    \MakeRules{5}
+    \subsection{Wyzwania i trudności:}
+    \MakeRules{5}
+    \subsection{Lekcje nauczonych:}
+    \MakeRules{5}
+    \subsection{Refleksja:}
+    \MakeRules{5}
+    \clearpage
+}
+
+% ============================================================================
+% MONTHLY SUMMARY PAGE
+% ============================================================================
+
+\newcommand{\MakeMonthlySummaryPage}[2]{%
+    \section{Podsumowanie Miesiąca — \pgfcalendarmonthname{#1} #2}
+    \subsection{Osiągnięcia:}
+    \MakeRules{5}
+    \subsection{Wyzwania i trudności:}
+    \MakeRules{5}
+    \subsection{Lekcje nauczonych:}
+    \MakeRules{5}
+    \subsection{Refleksja:}
+    \MakeRules{5}
+    \clearpage
+}
+
+% ============================================================================
+% YEAR SUMMARY PAGE
+% ============================================================================
+
+\newcommand{\MakeYearSummaryPage}{%
+    \section{Podsumowanie Roku \SetYear}
+    \subsection{Co się udało?}
+    \MakeRules{5}
+    \subsection{Co było największym osiągnieciem?}
+    \MakeRules{5}
+    \subsection{Czego się nauczyłem?}
+    \MakeRules{5}
+    \subsection{Co chciałbym poprawić w nadchodzącym roku?}
+    \MakeRules{5}
+    \clearpage
+}
+
+% ============================================================================
+% DATE CALCULATION AND ITERATION
+% ============================================================================
+
+\usepackage{pgffor}
+
+\newcommand{\MakeDailyPageWithWeeklyCheck}[3]{%
+    \pgfcalendar{checkday}{#1-#2-#3}{#1-#2-#3}{%
+        \MakeDailyPage{#1}{#2}{#3}{\pgfcalendarcurrentweekday}%
+        \ifnum\pgfcalendarcurrentweekday=6\relax
+            \MakeWeeklySummaryPage{}{}{}%
+        \fi
+    }%
+}
+
+\newcommand{\IterateYear}{%
+    % January
+    \MakeMonthlyPlanPage{1}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{1}{\day}%
+    }%
+    \MakeMonthlySummaryPage{1}{2026}%
+    
+    % February
+    \MakeMonthlyPlanPage{2}{2026}
+    \foreach \day in {1,...,28}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{2}{\day}%
+    }%
+    \MakeMonthlySummaryPage{2}{2026}%
+    
+    % March
+    \MakeMonthlyPlanPage{3}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{3}{\day}%
+    }%
+    \MakeMonthlySummaryPage{3}{2026}%
+    
+    % April
+    \MakeMonthlyPlanPage{4}{2026}
+    \foreach \day in {1,...,30}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{4}{\day}%
+    }%
+    \MakeMonthlySummaryPage{4}{2026}%
+    
+    % May
+    \MakeMonthlyPlanPage{5}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{5}{\day}%
+    }%
+    \MakeMonthlySummaryPage{5}{2026}%
+    
+    % June
+    \MakeMonthlyPlanPage{6}{2026}
+    \foreach \day in {1,...,30}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{6}{\day}%
+    }%
+    \MakeMonthlySummaryPage{6}{2026}%
+    
+    % July
+    \MakeMonthlyPlanPage{7}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{7}{\day}%
+    }%
+    \MakeMonthlySummaryPage{7}{2026}%
+    
+    % August
+    \MakeMonthlyPlanPage{8}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{8}{\day}%
+    }%
+    \MakeMonthlySummaryPage{8}{2026}%
+    
+    % September
+    \MakeMonthlyPlanPage{9}{2026}
+    \foreach \day in {1,...,30}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{9}{\day}%
+    }%
+    \MakeMonthlySummaryPage{9}{2026}%
+    
+    % October
+    \MakeMonthlyPlanPage{10}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{10}{\day}%
+    }%
+    \MakeMonthlySummaryPage{10}{2026}%
+    
+    % November
+    \MakeMonthlyPlanPage{11}{2026}
+    \foreach \day in {1,...,30}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{11}{\day}%
+    }%
+    \MakeMonthlySummaryPage{11}{2026}%
+    
+    % December
+    \MakeMonthlyPlanPage{12}{2026}
+    \foreach \day in {1,...,31}{%
+        \MakeDailyPageWithWeeklyCheck{2026}{12}{\day}%
+    }%
+    \MakeMonthlySummaryPage{12}{2026}%
+}
+
+% ============================================================================
+% MAIN DOCUMENT
+% ============================================================================
+
+\begin{document}
+
+\MakeTitlePage
+% \MakeYearlyCalendarPage
+% \MakeHabitTrackerMatrixFirst
+% \MakeHabitTrackerMatrixSecond
+
+% Iterate through entire year
+\IterateYear
+
+% Year summary
+\MakeYearSummaryPage
+
+\end{document}
