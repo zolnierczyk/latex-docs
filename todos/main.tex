@@ -1,0 +1,257 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Szablon Arkusza Nawyków w LaTeX
+% Autor: Gemini
+% Cel: Stworzenie dokumentu A4 do druku, pomagającego w śledzeniu nawyków.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- PREAMBUŁA ---
+% Tutaj definiujemy podstawowe ustawienia dokumentu i wczytujemy potrzebne pakiety.
+
+\documentclass[a4paper, 12pt]{article} % Definiuje klasę dokumentu: artykuł, rozmiar papieru A4, rozmiar czcionki 12pt.
+
+% --- PAKIETY ---
+\usepackage[utf8]{inputenc} % Umożliwia wprowadzanie polskich znaków (ą, ę, ć, etc.) bezpośrednio z klawiatury.
+\usepackage[T1]{fontenc}      % Zapewnia poprawne kodowanie czcionek, co jest kluczowe dla polskich znaków.
+\usepackage{polski}           % Włącza polskie zasady składu tekstu (np. dzielenie wyrazów).
+\usepackage[margin=2cm]{geometry} % Ustawia marginesy strony na 2cm z każdej strony, aby maksymalnie wykorzystać przestrzeń.
+\usepackage{multicol}         % Umożliwia tworzenie układu wielokolumnowego.
+\usepackage{amssymb}          % Dostarcza symbole matematyczne, w tym symbol pustego kwadratu (\square).
+\usepackage{enumitem}         % Pozwala na zaawansowaną personalizację list (np. usunięcie wcięć).
+\usepackage{titlesec}         % Umożliwia modyfikację wyglądu tytułów sekcji.
+\usepackage{helvet}
+
+% --- USTAWIENIA WYGLĄDU ---
+\pagestyle{empty} % Usuwa numery stron, aby arkusz był czysty i gotowy do druku.
+
+% Modyfikacja wyglądu tytułów sekcji, aby były większe i wyśrodkowane.
+\titleformat{\section}
+  {\normalfont\Large\bfseries\centering} % Formatowanie: normalna czcionka, duży rozmiar, pogrubiona, wyśrodkowana.
+  {} % Miejsce na numer sekcji (nie będzie wyświetlany, bo użyjemy \section*).
+  {0em} % Odstęp między numerem a tytułem.
+  {} % Kod przed tytułem.
+
+% Definicja pomocniczych poleceń do wstawiania checkboxów.
+% To sprawia, że kod jest czystszy i łatwiejszy w zarządzaniu.
+% \hfil automatycznie przesuwa kwadraty do prawego marginesu.
+
+% Polecenie wstawiające 7 kwadratów dla zadań codziennych.
+\newcommand{\dailyboxes}{%
+    \leavevmode\unskip\nobreak%
+    {\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1ex}
+}
+
+\newcommand{\dailyboxesDayNames}{%
+    \leavevmode\unskip\nobreak%
+    P
+    \hspace{1.5mm}W
+    \hspace{1.5mm}Ś
+    \hspace{1.5mm}C
+    \hspace{1.5mm}P
+    \hspace{1.5mm}S
+    \hspace{1.5mm}N
+    \hspace{1ex}
+}
+
+% Polecenie wstawiające 3 kwadratów dla zadań dwa razy w tygodniu.
+\newcommand{\midweekboxes}{%
+    \leavevmode\unskip\nobreak%
+    {\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1mm}{\Large$\square$}%
+    \hspace{1ex}
+}
+
+% Polecenie wstawiające 1 kwadrat dla zadań tygodniowych.
+\newcommand{\weeklybox}{%
+    \leavevmode\unskip\nobreak%
+    {\Large$\square$}%
+    \hspace{1ex}
+}
+
+% Ustawienia dla list, aby nie miały wcięć i standardowych punktorów.
+% Dzięki temu lista wygląda jak schludna checklista.
+\setlist[itemize]{
+  label=, % Usuwa domyślne punktory (np. kropki).
+  leftmargin=*, % Usuwa wcięcie z lewej strony.
+  itemsep=2ex % Zwiększa odstęp między elementami listy dla lepszej czytelności.
+}
+
+% --- POCZĄTEK DOKUMENTU ---
+\begin{document}
+
+% Tytuł główny dokumentu.
+\begin{center}
+    {\Huge\bfseries Cel: Czysty domek}
+    \vspace{1em} % Dodaje pionowy odstęp pod tytułem.
+\end{center}
+
+% --- SEKCJA: ZADANIA CODZIENNE ---
+\hrule
+\section*{Codzienne}
+\begin{itemize}
+    \item \dailyboxesDayNames
+    \item \dailyboxes Pościelenie łóżka
+    \item \dailyboxes Wyładowanie zmywarki
+    \item \dailyboxes Załadowanie zmywarki
+    \item \dailyboxes Wyrzucenie śmieci i BIO
+    \item \dailyboxes Wytarcie blatów i płyty w kuchni 
+    \item \dailyboxes Odkurzanie kuchni
+    \item \dailyboxes Opróżnić suszarke (10 min)
+    \item \dailyboxes Odłożenie rzeczy na miejsce (10 min)
+    \item \dailyboxes \rule[0pt]{10cm}{0.5pt}
+\end{itemize}
+\hrule
+
+\vspace{1em} % Dodaje większy odstęp przed następną sekcją.
+
+% --- SEKCJA: ZADANIA TYGODNIOWE ---
+\section*{W tygodniu}
+% Rozpoczyna środowisko dwóch kolumn. Cała zawartość od tego miejsca
+% będzie automatycznie dzielona na dwie kolumny.
+\begin{multicols}{2}
+
+\begin{itemize}
+    \item \midweekboxes Zrobienie prania
+    \item \midweekboxes Odkurzyć parter lub piętro
+    \item \midweekboxes \rule[0pt]{5cm}{0.5pt}
+    \item \weeklybox Czyszczenie zlewu
+    \item \weeklybox Przepatrzenie lodówki
+    \item \weeklybox Czyszczenie łazienki
+    \item \weeklybox Wymyć i zalać kibelki
+    \item \weeklybox Umycie podłóg parter lub piętro    
+    \item \weeklybox Zmiana pościeli i ręczników
+    \item \weeklybox Podlanie kwiatów
+    \item \weeklybox Starcie kurzy z mebli
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+\end{itemize}
+
+\hrule
+
+\vspace{2em} % Dodaje większy odstęp przed następną sekcją.
+
+% --- SEKCJA: NOTATKI ---
+% Pusta sekcja z liniami na odręczne notatki.
+\section*{Notatki i Plany}
+\hrule
+\vspace{5.0cm} % Zostawia dużo miejsca na notatki.
+\hrule
+
+% To polecenie jest przydatne, gdy chcesz ręcznie "złamać" kolumnę
+% i przenieść dalszą treść do następnej. W tym szablonie nie jest to
+% konieczne, bo LaTeX sam dobrze zbalansuje kolumny.
+% \columnbreak
+
+% Koniec środowiska dwóch kolumn.
+\end{multicols}
+
+% --- KONIEC Listy Tygodniowej ToDo ---
+\newpage
+
+% Tytuł główny dokumentu.
+\begin{center}
+    {\Huge\bfseries Cel: Utrzymać Domek}
+    \vspace{1em} % Dodaje pionowy odstęp pod tytułem.
+\end{center}
+
+\hrule
+
+% --- SEKCJA: Raz w kwartale ---
+
+\begin{multicols}{2}
+
+\section*{Miesięcznie}
+\begin{itemize}
+    \item \midweekboxes Pokręcić zaworami wod-kan-gaz
+    \item \midweekboxes Przetestować czujniki dymu i gazu
+    \item \midweekboxes Serwis kwiatków domowych
+    \item \midweekboxes \rule[0pt]{5cm}{0.5pt}
+    \item \midweekboxes \rule[0pt]{5cm}{0.5pt}
+    \item \midweekboxes \rule[0pt]{5cm}{0.5pt}
+\end{itemize}
+\hrule
+
+\section*{Kwartalnie}
+\begin{itemize}
+    \item \midweekboxes Umyć pralkę
+    \item \midweekboxes Umyć zmywarkę
+    \item \midweekboxes Umyć piecyk
+    \item \midweekboxes Odkamienić ekspres
+    \item \midweekboxes Sprawdzić korki elektryczne
+    \item \midweekboxes Sprawdzić stan rynien
+    \item \midweekboxes \rule[0pt]{5cm}{0.5pt}
+\end{itemize}
+\hrule
+
+\end{multicols}
+
+\begin{multicols}{2}
+
+\section*{Przed Zimą}
+\begin{itemize}
+    \item \weeklybox Zakręcić zawór wodny na ogródek
+    \item \weeklybox Zabezpieczyć meble ogrodowe
+    \item \weeklybox Zamówić serwis pieca CO
+    \item \weeklybox Wymienić opony na zimowe
+    \item \weeklybox Sprawdzić strych czy nie ma dziur
+    \item \weeklybox Sprawdzić stan kominów wentylacyjnych
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+\end{itemize}
+\hrule
+
+\section*{Przed Latem}
+\begin{itemize}
+    \item \weeklybox Odkręcić zawór wodny na ogródek
+    \item \weeklybox Wyciągnąć meble ogrodowe
+    \item \weeklybox Wymienić opony na letnie
+    \item \weeklybox Sprawdzić stan kominów wentylacyjnych
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+    \item \weeklybox \rule[0pt]{5cm}{0.5pt}
+\end{itemize}
+\hrule
+
+\end{multicols}
+% --- KONIEC Listy Kwartalnej ToDo ---
+\newpage
+
+% Tytuł główny dokumentu.
+\begin{center}
+    {\Huge\bfseries Cel: Dobrze Zjeść}
+    \vspace{1em} % Dodaje pionowy odstęp pod tytułem.
+\end{center}
+
+\hrule
+
+\section*{Własne jedzonko}
+\begin{itemize}
+    \item \item \dailyboxesDayNames
+    \item \dailyboxes Śniadania
+    \item \dailyboxes Przekąski
+    \item \dailyboxes Obiady
+    \item \dailyboxes Desery    
+    \item \dailyboxes Kolacje
+    \item \dailyboxes Owoce
+    \item \dailyboxes Eksperymenty
+    \item \dailyboxes \rule[0pt]{10cm}{0.5pt}
+\end{itemize}
+
+\hrule
+
+\section*{Nowy przepis}
+\hrule
+\vspace{5.0cm} % Zostawia dużo miejsca na notatki.
+\hrule
+\vspace{5.0cm} % Zostawia dużo miejsca na notatki.
+
+\hrule
+
+% --- KONIEC DOKUMENTU ---
+\end{document}
