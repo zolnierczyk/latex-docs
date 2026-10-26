@@ -1,0 +1,66 @@
+name: Build LaTeX project
+
+# Reusable workflow: builds one LaTeX project and publishes a per-project
+# GitHub Release so multiple projects in this monorepo never collide on tags.
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: Directory of the project (relative to repo root).
+        required: true
+        type: string
+      root-file:
+        description: Root .tex file(s) to compile, relative to working-directory. Newline-separated for multiple.
+        required: true
+        type: string
+      pre-compile:
+        description: Optional shell command run before latexmk (e.g. generating MetaPost diagrams).
+        required: false
+        type: string
+        default: ""
+      work-in-root-dir:
+        description: Compile each root file from its own directory (needed when it uses relative \includegraphics paths).
+        required: false
+        type: boolean
+        default: false
+      release-name:
+        description: Human-readable name of the GitHub Release.
+        required: true
+        type: string
+      tag-prefix:
+        description: Per-project tag prefix; the tag becomes "<prefix>-v<run_number>".
+        required: true
+        type: string
+      pdf-paths:
+        description: PDF file(s) to attach to the release, relative to the repo root. Newline-separated / globs allowed.
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: ${{ inputs.working-directory }}
+          root_file: ${{ inputs.root-file }}
+          pre_compile: ${{ inputs.pre-compile }}
+          work_in_root_file_dir: ${{ inputs.work-in-root-dir }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ inputs.pdf-paths }}
+          name: ${{ inputs.release-name }}
+          tag_name: ${{ inputs.tag-prefix }}-v${{ github.run_number }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

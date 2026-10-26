@@ -276,3 +276,9 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+## MetaPost (mptopdf) generated artifacts — source *.mp files are kept
+*.mpx
+*-1.pdf
+*.1
+*.ps
