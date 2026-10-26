@@ -1,5 +1,5 @@
 {
-    "name": "Latex Dziennik DevContainer",
+    "name": "latex-docs Monorepo DevContainer",
     "build": {
         "dockerfile": "../Dockerfile"
     },
