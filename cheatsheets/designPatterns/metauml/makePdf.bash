@@ -8,7 +8,5 @@ do
     mptopdf ${file}
 done
 
-rm *.log
-rm *.1
-rm *.ps
+rm -f *.log *.1 *.ps *.mpx
 
