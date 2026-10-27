@@ -15,17 +15,17 @@ permissions:
 
 jobs:
   changes:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       todos: ${{ steps.filter.outputs.todos }}
       pamietnik: ${{ steps.filter.outputs.pamietnik }}
       cheatsheets: ${{ steps.filter.outputs.cheatsheets }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Detect changed projects
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         id: filter
         with:
           filters: |
