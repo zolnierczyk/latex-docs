@@ -18,21 +18,21 @@
 input metauml;
 
 beginfig(1);
-    Class.abstract("AbstractClass")()
+    Class.absClass("AbstractClass")()
                   ("+TemplateMethod()", "+PrimitiveOperation1()", 
                    "+PrimitiveOperation2()");
-    Class.concrete("ConcreteClass")()
+    Class.concClass("ConcreteClass")()
                   ("+PrimitiveOperation1()", "+PrimitiveOperation2()");
 
     Note.noteTemplateMethod("PrimitiveOperation1()", "...", "PrimitiveOperation2()");
 
-    concrete.n = abstract.s - (0, 40);
-    noteTemplateMethod.w = abstract.e + (40, 0);
+    concClass.n = absClass.s - (0, 40);
+    noteTemplateMethod.w = absClass.e + (40, 0);
 
-    drawObjects(concrete, abstract, noteTemplateMethod);
+    drawObjects(concClass, absClass, noteTemplateMethod);
 
-    clink(inheritance)(concrete, abstract);
-    link(dashedLink)(pathHorizontal(abstract.methodStack.pict[0].e, noteTemplateMethod.left));
+    clink(inheritance)(concClass, absClass);
+    link(dashedLink)(pathHorizontal(absClass.methodStack.pict[0].e, noteTemplateMethod.left));
 endfig;
 
 end
