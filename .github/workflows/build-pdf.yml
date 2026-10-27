@@ -74,7 +74,7 @@ jobs:
         designPatterns/Patterns.tex
         simple/simple.tex
       # Generate the MetaPost design-pattern diagrams (metauml/*-1.pdf) before compiling.
-      pre-compile: cd designPatterns/metauml && sh makePdf.bash
+      pre-compile: (cd designPatterns/metauml && sh makePdf.bash)
       # Patterns.tex uses relative \includegraphics paths, so compile from each file's dir.
       work-in-root-dir: true
       release-name: Cheatsheets PDF
