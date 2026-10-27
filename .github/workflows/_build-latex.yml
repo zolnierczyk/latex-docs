@@ -42,13 +42,13 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build LaTeX document
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           working_directory: ${{ inputs.working-directory }}
           root_file: ${{ inputs.root-file }}
@@ -56,7 +56,7 @@ jobs:
           work_in_root_file_dir: ${{ inputs.work-in-root-dir }}
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: ${{ inputs.pdf-paths }}
           name: ${{ inputs.release-name }}
