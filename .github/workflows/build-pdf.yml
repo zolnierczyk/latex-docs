@@ -2,7 +2,8 @@ name: Build PDFs
 
 # Monorepo orchestrator: detects which project changed and builds only that one.
 # Each project is built by the reusable .github/workflows/_build-latex.yml and
-# publishes its own release (tags: todos-v*, pamietnik-v*, cheatsheets-v*).
+# publishes its own release (tags: todos-v*, pamietnik-v*, cheatsheets-v*,
+# recipebook-v*).
 
 on:
   push:
@@ -20,6 +21,7 @@ jobs:
       todos: ${{ steps.filter.outputs.todos }}
       pamietnik: ${{ steps.filter.outputs.pamietnik }}
       cheatsheets: ${{ steps.filter.outputs.cheatsheets }}
+      recipebook: ${{ steps.filter.outputs.recipebook }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -39,6 +41,10 @@ jobs:
               - '.github/workflows/_build-latex.yml'
             cheatsheets:
               - 'cheatsheets/**'
+              - '.github/workflows/build-pdf.yml'
+              - '.github/workflows/_build-latex.yml'
+            recipebook:
+              - 'recipebook/**'
               - '.github/workflows/build-pdf.yml'
               - '.github/workflows/_build-latex.yml'
 
@@ -82,3 +88,15 @@ jobs:
       pdf-paths: |
         cheatsheets/designPatterns/Patterns.pdf
         cheatsheets/simple/simple.pdf
+
+  recipebook:
+    needs: changes
+    if: ${{ needs.changes.outputs.recipebook == 'true' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/_build-latex.yml
+    with:
+      working-directory: recipebook
+      root-file: main.tex
+      latexmk-args: -xelatex -file-line-error -interaction=nonstopmode
+      release-name: Recipe Book PDF
+      tag-prefix: recipebook
+      pdf-paths: recipebook/main.pdf
