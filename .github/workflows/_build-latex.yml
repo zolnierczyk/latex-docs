@@ -19,6 +19,11 @@ on:
         required: false
         type: string
         default: ""
+      latexmk-args:
+        description: Arguments passed to latexmk (for example, -xelatex for documents using fontspec).
+        required: false
+        type: string
+        default: -pdf -file-line-error -interaction=nonstopmode
       work-in-root-dir:
         description: Compile each root file from its own directory (needed when it uses relative \includegraphics paths).
         required: false
@@ -52,6 +57,7 @@ jobs:
         with:
           working_directory: ${{ inputs.working-directory }}
           root_file: ${{ inputs.root-file }}
+          args: ${{ inputs.latexmk-args }}
           pre_compile: ${{ inputs.pre-compile }}
           work_in_root_file_dir: ${{ inputs.work-in-root-dir }}
 

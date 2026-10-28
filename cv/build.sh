@@ -2,27 +2,28 @@
 #
 # Build the CV LaTeX templates in this folder into PDFs.
 #
-# This is a local developer helper for an early work-in-progress PoC; there is
-# intentionally no CI for the cv/ templates yet.
-#
 # Usage:
-#   ./build.sh                 # build every *.tex template
-#   ./build.sh alta simple     # build only the named templates
-#   ./build.sh -c | --clean    # remove the build/ output directory
+#   ./build.sh                         # build the maintained CV templates
+#   ./build.sh simple plush            # build named templates
+#   ./build.sh latexcv/classic          # build a template by path
+#   ./build.sh -c | --clean            # remove the build/ output directory
 #
-# Output (PDFs and LaTeX aux files) goes to cv/build/. The script keeps going
-# if a template fails, prints a summary, and exits non-zero when any build
-# failed so problems are easy to spot.
+# Output (PDFs, logs, and LaTeX aux files) goes to cv/build/.
 
 set -u
 
 cd "$(dirname "$0")"
 
-OUTDIR="build"
+OUTDIR="$PWD/build"
 
-if [ "${1:-}" = "-c" ] || [ "${1:-}" = "--clean" ]; then
+if [ "$#" -eq 1 ] && { [ "$1" = "-c" ] || [ "$1" = "--clean" ]; }; then
     rm -rf "$OUTDIR"
-    echo "Removed $OUTDIR/"
+    echo "Removed build/"
+    exit 0
+fi
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    sed -n '1,12p' "$0"
     exit 0
 fi
 
@@ -32,63 +33,104 @@ if ! command -v latexmk >/dev/null 2>&1; then
     exit 1
 fi
 
-# Pick the templates to build: the arguments (with or without .tex), or all.
-templates=""
+# These are document entrypoints; support files and legacy examples are excluded.
+all_templates=(
+    infographics.tex
+    libre.tex
+    altacv/mmayer.tex
+    altacv/sample.tex
+    plushcv/plush.tex
+    simplecv/simple.tex
+)
+while IFS= read -r tex; do
+    all_templates+=("$tex")
+done < <(find latexcv -mindepth 2 -maxdepth 2 -type f -name main.tex -print | sort)
+while IFS= read -r tex; do
+    all_templates+=("$tex")
+done < <(find latexcv/infographics2 -mindepth 2 -maxdepth 2 -type f -name main.tex -print | sort)
+
+resolve_template() {
+    local arg="${1#./}"
+    local candidate
+
+    for candidate in "$arg" "$arg.tex" "$arg/main.tex"; do
+        if [ -f "$candidate" ]; then
+            printf '%s\n' "${candidate#./}"
+            return 0
+        fi
+    done
+
+    case "$arg" in
+        alta) printf '%s\n' "altacv/sample.tex" ;;
+        mmayer) printf '%s\n' "altacv/mmayer.tex" ;;
+        sample) printf '%s\n' "altacv/sample.tex" ;;
+        plush) printf '%s\n' "plushcv/plush.tex" ;;
+        simple) printf '%s\n' "simplecv/simple.tex" ;;
+        latexcv-infographics) printf '%s\n' "latexcv/infographics/main.tex" ;;
+        *) return 1 ;;
+    esac
+}
+
 if [ "$#" -gt 0 ]; then
+    templates=()
     for arg in "$@"; do
-        templates="$templates ${arg%.tex}.tex"
+        if ! tex="$(resolve_template "$arg")"; then
+            echo "error: unknown CV template '$arg'" >&2
+            echo "       pass a template name or path relative to cv/ (see --help)" >&2
+            exit 1
+        fi
+        templates+=("$tex")
     done
 else
-    templates="$(ls -1 ./*.tex 2>/dev/null)"
+    templates=("${all_templates[@]}")
 fi
 
-if [ -z "${templates// /}" ]; then
-    echo "No .tex templates found to build."
+if [ "${#templates[@]}" -eq 0 ]; then
+    echo "No CV templates found to build."
     exit 0
 fi
 
-# Some templates must be compiled with XeLaTeX (fontspec / custom classes that
-# say so). Everything else compiles fine with pdfLaTeX.
-detect_engine() {
-    if grep -qiE 'compiled with xelatex|\{plushcv\}' "$1"; then
-        echo "xelatex"
-    else
-        echo "pdflatex"
-    fi
-}
-
 mkdir -p "$OUTDIR"
 
-ok=""
-failed=""
-for tex in $templates; do
-    name="$(basename "${tex%.tex}")"
+ok=()
+failed=()
+for tex in "${templates[@]}"; do
     if [ ! -f "$tex" ]; then
-        echo "!! $name: $tex not found, skipping"
-        failed="$failed $name"
+        echo "!! $tex: source file not found"
+        failed+=("$tex")
         continue
     fi
 
-    engine="$(detect_engine "$tex")"
-    case "$engine" in
-        xelatex) engine_flag="-xelatex" ;;
-        *)       engine_flag="-pdf" ;;
-    esac
+    source_dir="$(dirname "$tex")"
+    source_file="$(basename "$tex")"
+    name="${tex%.tex}"
+    name="${name//\//_}"
 
-    echo "==> Building $name ($engine)"
-    if latexmk "$engine_flag" -shell-escape -interaction=nonstopmode \
-        -halt-on-error -outdir="$OUTDIR" "$tex" >"$OUTDIR/$name.build.log" 2>&1; then
-        echo "   ok  -> $OUTDIR/$name.pdf"
-        ok="$ok $name"
+    if grep -qiE 'compiled with xelatex|\{plushcv\}' "$tex"; then
+        engine="xelatex"
+        engine_flag="-xelatex"
     else
-        echo "   FAILED (see $OUTDIR/$name.build.log)"
-        failed="$failed $name"
+        engine="pdflatex"
+        engine_flag="-pdf"
+    fi
+
+    echo "==> Building $tex ($engine)"
+    if (
+        cd "$source_dir" &&
+        latexmk "$engine_flag" -g -shell-escape -interaction=nonstopmode \
+            -halt-on-error -outdir="$OUTDIR" "$source_file"
+    ) >"$OUTDIR/$name.build.log" 2>&1; then
+        echo "   ok  -> build/$name.pdf"
+        ok+=("$name")
+    else
+        echo "   FAILED (see build/$name.build.log)"
+        failed+=("$tex")
     fi
 done
 
 echo
 echo "Summary:"
-echo "  built : ${ok:-(none)}"
-echo "  failed: ${failed:-(none)}"
+printf '  built : %s\n' "${ok[*]:-(none)}"
+printf '  failed: %s\n' "${failed[*]:-(none)}"
 
-[ -z "${failed// /}" ]
+[ "${#failed[@]}" -eq 0 ]
