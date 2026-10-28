@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%%%%%
 % This is an sample CV template created using altacv.cls
-% (v1.7.4, 30 July 2025) written by LianTze Lim (liantze@gmail.com). Compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
+% (v1.7.4, 30 Jul 2025) written by LianTze Lim (liantze@gmail.com), based on the
+% CV created by BusinessInsider at http://www.businessinsider.my/a-sample-resume-for-marissa-mayer-2016-7/?r=US&IR=T
 %
 %% It may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -12,7 +13,7 @@
 %%%%%%%%%%%%%%%%
 
 %% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
-% \documentclass[10pt,a4paper,withhyper,normalphoto]{altacv}
+% \documentclass[10pt,a4paper,withhypeper,normalphoto]{altacv}
 
 \documentclass[10pt,a4paper,withhyper]{altacv}
 %% AltaCV uses the fontawesome5 and simpleicons packages.
@@ -24,44 +25,37 @@
 % The paracol package lets you typeset columns of text in parallel
 \usepackage{paracol}
 
+
 % Change the font if you want to, depending on whether
 % you're using pdflatex or xelatex/lualatex
 % WHEN COMPILING WITH XELATEX PLEASE USE
-% xelatex -shell-escape -output-driver="xdvipdfmx -z 0" sample.tex
+% xelatex -shell-escape -output-driver="xdvipdfmx -z 0" mmayer.tex
 \iftutex
   % If using xelatex or lualatex:
-  \setmainfont{Roboto Slab}
-  \setsansfont{Lato}
-  \renewcommand{\familydefault}{\sfdefault}
+  \setmainfont{Lato}
 \else
   % If using pdflatex:
-  \usepackage[rm]{roboto}
-  \usepackage[defaultsans]{lato}
-  % \usepackage{sourcesanspro}
-  \renewcommand{\familydefault}{\sfdefault}
+  \usepackage[default]{lato}
 \fi
 
 % Change the colours if you want to
+\definecolor{VividPurple}{HTML}{3E0097}
 \definecolor{SlateGrey}{HTML}{2E2E2E}
 \definecolor{LightGrey}{HTML}{666666}
-\definecolor{DarkPastelRed}{HTML}{450808}
-\definecolor{PastelRed}{HTML}{8F0D0D}
-\definecolor{GoldenEarth}{HTML}{E7D192}
-\colorlet{name}{black}
-\colorlet{tagline}{PastelRed}
-\colorlet{heading}{DarkPastelRed}
-\colorlet{headingrule}{GoldenEarth}
-\colorlet{subheading}{PastelRed}
-\colorlet{accent}{PastelRed}
+% \colorlet{name}{black}
+% \colorlet{tagline}{PastelRed}
+\colorlet{heading}{VividPurple}
+\colorlet{headingrule}{VividPurple}
+% \colorlet{subheading}{PastelRed}
+\colorlet{accent}{VividPurple}
 \colorlet{emphasis}{SlateGrey}
 \colorlet{body}{LightGrey}
 
 % Change some fonts, if necessary
-\renewcommand{\namefont}{\Huge\rmfamily\bfseries}
-\renewcommand{\personalinfofont}{\footnotesize}
-\renewcommand{\cvsectionfont}{\LARGE\rmfamily\bfseries}
-\renewcommand{\cvsubsectionfont}{\large\bfseries}
-
+% \renewcommand{\namefont}{\Huge\rmfamily\bfseries}
+% \renewcommand{\personalinfofont}{\footnotesize}
+% \renewcommand{\cvsectionfont}{\LARGE\rmfamily\bfseries}
+% \renewcommand{\cvsubsectionfont}{\large\bfseries}
 
 % Change the bullets for itemize and rating marker
 % for \cvskill if you want to
@@ -84,59 +78,59 @@
 %% Use (and optionally edit if necessary) this .tex if you
 %% want to use an author-year reference style like APA(6)
 %% for your publication list
-% \input{pubs-authoryear}
+% \input{pubs-authoryear.cfg}
 
 %% Use (and optionally edit if necessary) this .tex if you
 %% want an originally numerical reference style like IEEE
 %% for your publication list
-\input{pubs-num}
+\input{pubs-num.cfg}
 
 %% sample.bib contains your publications
 \addbibresource{sample.bib}
 
 \begin{document}
-\name{Your Name Here}
-\tagline{Your Position or Tagline Here}
+\name{Marissa Mayer}
+\tagline{Business Woman \& Proud Geek}
+% Cropped to square from https://en.wikipedia.org/wiki/Marissa_Mayer#/media/File:Marissa_Mayer_May_2014_(cropped).jpg, CC-BY 2.0
 %% You can add multiple photos on the left or right
-\photoR{2.8cm}{Globe_High}
-% \photoL{2.5cm}{Yacht_High,Suitcase_High}
-
+\photoR{2.5cm}{mmayer-wikipedia-cc-by-2_0}
+% \photoL{2cm}{Yacht_High,Suitcase_High}
 \personalinfo{%
   % Not all of these are required!
-  \email{your_name@email.com}
+  \email{mmayer@yahoo-inc.com}
   \phone{000-00-0000}
-  \mailaddress{Åddrésş, Street, 00000 Cóuntry}
-  \location{Location, COUNTRY}
-  \homepage{www.homepage.com}
-  % \twitter{@twitterhandle}
-  \xtwitter{@x-handle}
-  \linkedin{your_id}
-  \github{your_id}
-  \orcid{0000-0000-0000-0000}
+  \mailaddress{Address, Street, 00000 County}
+  \location{Sunnyvale, CA}
+  \linkedin{marissamayer}
+  % \twitter{@marissamayer}
+  \xtwitter{@marissamayer}
+  \homepage{marissamayr.tumblr.com}
+%   \github{github.com/mmayer} % I'm just making this up though.
+%   \orcid{0000-0000-0000-0000} % Obviously making this up too.
   %% You can add your own arbitrary detail with
   %% \printinfo{symbol}{detail}[optional hyperlink prefix]
-  % \printinfo{\faPaw}{Hey ho!}[https://example.com/]
-
+  %% \printinfo{\faPaw}{Hey ho!}
   %% Or you can declare your own field with
   %% \NewInfoFiled{fieldname}{symbol}[optional hyperlink prefix] and use it:
-  \NewInfoField{gitlab}{\faGitlab}[https://gitlab.com/]
-  \gitlab{your_id}
-  %%
+  % \NewInfoField{gitlab}{\faGitlab}[https://gitlab.com/]
+  % \gitlab{your_id}
+	%%
   %% For services and platforms like Mastodon where there isn't a
   %% straightforward relation between the user ID/nickname and the hyperlink,
   %% you can use \printinfo directly e.g.
   % \printinfo{\faMastodon}{@username@instace}[https://instance.url/@username]
   %% But if you absolutely want to create new dedicated info fields for
   %% such platforms, then use \NewInfoField* with a star:
-  \NewInfoField*{mastodon}{\faMastodon}
+  % \NewInfoField*{mastodon}{\faMastodon}
   %% then you can use \mastodon, with TWO arguments where the 2nd argument is
   %% the full hyperlink.
-  \mastodon{@username@instance}{https://instance.url/@username}
+  % \mastodon{@username@instance}{https://instance.url/@username}
 }
 
 \makecvheader
+
 %% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
-% \AtBeginEnvironment{itemize}{\small}
+\AtBeginEnvironment{itemize}{\small}
 
 %% Set the left/right column width ratio to 6:4.
 \columnratio{0.6}
@@ -144,51 +138,66 @@
 % Start a 2-column paracol. Both the left and right columns will automatically
 % break across pages if things get too long.
 \begin{paracol}{2}
+
 \cvsection{Experience}
 
-\cvevent{Job Title 1}{Company 1}{Month 20XX -- Ongoing}{Location}
+\cvevent{President \& CEO}{Yahoo!}{July 2012 -- Ongoing}{Sunnyvale, CA}
 \begin{itemize}
-\item Job description 1
-\item Job description 2
+\item Led the \$5 billion acquisition of the company with Verizon -- the entity which believed most in the immense value Yahoo!\ has created
+\item Acquired Tumblr for \$1.1 billion and moved the company's blog there
+\item Built Yahoo's mobile, video and social businesses from nothing in 2011 to \$1.6 billion in GAAP revenue in 2015
+\item Tripled the company's mobile base to over 600 million monthly active users and generated over \$1 billion of mobile advertising revenue last year
 \end{itemize}
 
 \divider
 
-\cvevent{Job Title 2}{Company 2}{Month 20XX -- Ongoing}{Location}
+\cvevent{Vice President of Location \& Services}{Google}{Oct 2010 -- July 2012}{Palo Alto, CA}
 \begin{itemize}
-\item Job description 1
-\item Job description 2
-\end{itemize}
-
-\cvsection{Projects}
-
-\cvevent{Project 1}{Funding agency/institution}{}{}
-\begin{itemize}
-\item Details
+\item Position Google Maps as the world leader in mobile apps and navigation
+\item Oversaw 1000+ engineers and product managers working on Google Maps, Google Places and Google Earth
 \end{itemize}
 
 \divider
 
-\cvevent{Project 2}{Funding agency/institution}{Project duration}{}
-A short abstract would also work.
+\cvevent{Vice President of Search Products \& UX}{Google}{2005 --  2010}{Palo Alto, CA}
 
-\medskip
+\divider
+
+\cvevent{Product Manager \& UI Lead}{Google}{Oct 2001 -- July 2005}{Palo Alto, CA}
+
+\begin{itemize}
+\item Appointed by the founder Larry Page in 2001 to lead the Product Management and User Interaction teams
+\item Optimized Google's homepage and A/B tested every minor detail to increase usability (incl.~spacing between words, color schemes and pixel-by-pixel element alignment)
+\end{itemize}
+
+% \divider
+
+% \cvevent{Product Engineer}{Google}{23 June 1999 -- 2001}{Palo Alto, CA}
+
+% \begin{itemize}
+% \item Joined the company as employe \#20 and female employee \#1
+% \item Developed targeted advertisement in order to use user's search queries and show them related ads
+% \end{itemize}
 
 \cvsection{A Day of My Life}
 
 % Adapted from @Jake's answer from http://tex.stackexchange.com/a/82729/226
 % \wheelchart{outer radius}{inner radius}{
 % comma-separated list of value/text width/color/detail}
+% Some ad-hoc tweaking to adjust the labels so that they don't overlap
+\hspace*{-1em}  %% quick hack to move the wheelchart a bit left
 \wheelchart{1.5cm}{0.5cm}{%
-  6/8em/accent!30/{Sleep,\\beautiful sleep},
-  3/8em/accent!40/Hopeful novelist by night,
-  8/8em/accent!60/Daytime job,
-  2/10em/accent/Sports and relaxation,
-  5/6em/accent!20/Spending time with family
+  10/13em/accent!30/Sleeping \& dreaming about work,
+  25/9em/accent!60/Public resolving issues with Yahoo!\ investors,
+  5/11em/accent!10/\footnotesize\\[1ex]New York \& San Francisco Ballet Jawbone board member,
+  20/11em/accent!40/Spending time with family,
+  5/8em/accent!20/\footnotesize Business development for Yahoo!\ after the Verizon acquisition,
+  30/9em/accent/Showing Yahoo!\ \mbox{employees} that their work has meaning,
+  5/8em/accent!20/Baking cupcakes
 }
 
 % use ONLY \newpage if you want to force a page break for
-% ONLY the current column
+% ONLY the currentc column
 \newpage
 
 \cvsection{Publications}
@@ -208,7 +217,7 @@ A short abstract would also work.
 
 \divider
 
-\printbibliography[heading=pubtype,title={\printinfo{\faFile*[regular]}{Journal Articles}},type=article]
+\printbibliography[heading=pubtype,title={\printinfo{\faFile*[regular]}{Journal Articles}}, type=article]
 
 \divider
 
@@ -218,37 +227,40 @@ A short abstract would also work.
 %% page if the content is too long.
 \switchcolumn
 
-\cvsection{My Life Philosophy}
-
+\cvsection{Life Philosophy}
 \begin{quote}
-``Something smart or heartfelt, preferably in one sentence.''
+``If you don't have any shadows, you're not standing in the light.''
 \end{quote}
 
 \cvsection{Most Proud of}
 
-\cvachievement{\faTrophy}{Fantastic Achievement}{and some details about it}
+\cvachievement{\faTrophy}{Courage I had}{to take a sinking ship and try to make it float}
 
 \divider
 
-\cvachievement{\faHeartbeat}{Another achievement}{more details about it of course}
+\cvachievement{\faHeartbeat}{Persistence \& Loyalty}{I showed despite the hard moments and my willingness to stay with Yahoo after the acquisition}
 
 \divider
 
-\cvachievement{\faHeartbeat}{Another achievement}{more details about it of course}
+\cvachievement{\faChartLine}{Google's Growth}{from a hundred thousand searches per day to over a billion}
+
+\divider
+
+\cvachievement{\faFemale}{Inspiring women in tech}{Youngest CEO on Fortune's list of 50 most powerful women}
 
 \cvsection{Strengths}
 
 % Don't overuse these \cvtag boxes — they're just eye-candies and not essential. If something doesn't fit on a single line, it probably works better as part of an itemized list (probably inlined itemized list), or just as a comma-separated list of strengths.
 
-\cvtag{Hard-working}
-\cvtag{Eye for detail}\\
+\cvtag{Hard-working (18/24)}
+\cvtag{Persuasive}\\
 \cvtag{Motivator \& Leader}
 
 \divider\smallskip
 
-\cvtag{C++}
-\cvtag{Embedded Systems}\\
-\cvtag{Statistical Analysis}
+\cvtag{UX}
+\cvtag{Mobile Devices \& Applications}
+\cvtag{Product Management \& Marketing}
 
 \cvsection{Languages}
 
@@ -258,27 +270,18 @@ A short abstract would also work.
 \cvskill{Spanish}{4}
 \divider
 
-\cvskill{German}{3.5} %% Supports X.5 values.
+\cvskill{German}{3.5} %% supports X.5 values.
 
-%% Yeah I didn't spend too much time making all the
-%% spacing consistent... sorry. Use \smallskip, \medskip,
-%% \bigskip, \vspace etc to make adjustments.
-\medskip
 
 \cvsection{Education}
 
-\cvevent{Ph.D.\ in Your Discipline}{Your University}{Sept 2002 -- June 2006}{}
-Thesis title: Wonderful Research
+\cvevent{M.S.\ in Computer Science}{Stanford University}{Sept 1997 -- June 1999}{}
 
 \divider
 
-\cvevent{M.Sc.\ in Your Discipline}{Your University}{Sept 2001 -- June 2002}{}
+\cvevent{B.S.\ in Symbolic Systems}{Stanford University}{Sept 1993 -- June 1997}{}
 
-\divider
-
-\cvevent{B.Sc.\ in Your Discipline}{Stanford University}{Sept 1998 -- June 2001}{}
-
-% \divider
+\newpage
 
 \cvsection{Referees}
 
@@ -291,8 +294,6 @@ Thesis title: Wonderful Research
 \cvref{Prof.\ Gamma Delta}{Institute}{g.delta@university.edu}
 {Address Line 1\\Address Line 2}
 
-
 \end{paracol}
-
 
 \end{document}
