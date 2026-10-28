@@ -10,6 +10,7 @@ project; shared tooling (dev container, ignore rules, CI) lives at the repo root
 | [`todos`](todos/) | Habit / todo tracking sheet (A4) | `main.tex` | `todos-v*` → *Todo List PDF* |
 | [`pamietnik`](pamietnik/) | Yearly calendar & journal (A5, `memoir`) | `main.tex` | `pamietnik-v*` → *Dziennik PDF* |
 | [`cheatsheets`](cheatsheets/) | Design-pattern & LaTeX cheat sheets | `designPatterns/Patterns.tex`, `simple/simple.tex` | `cheatsheets-v*` → *Cheatsheets PDF* |
+| [`recipebook`](recipebook/) | Recipe book | `main.tex` | `recipebook-v*` → *Recipe Book PDF* |
 
 ## Building locally
 
@@ -27,6 +28,9 @@ cd pamietnik && latexmk -pdf main.tex
 cd cheatsheets/designPatterns/metauml && sh makePdf.bash
 cd ..        && latexmk -pdf Patterns.tex
 cd ../simple && latexmk -pdf simple.tex
+
+# recipebook (requires XeLaTeX for fontspec)
+cd ../../recipebook && latexmk -xelatex main.tex
 ```
 
 The `cheatsheets/designPatterns/metauml/*.mp` files are MetaPost **sources** (kept
@@ -44,4 +48,4 @@ On every push to `main` (and via *Run workflow*), `.github/workflows/build-pdf.y
    Release**. Tags are namespaced (`todos-v<run>`, `pamietnik-v<run>`,
    `cheatsheets-v<run>`) so projects never collide on releases.
 
-A manual `workflow_dispatch` run rebuilds and releases all three projects.
+A manual `workflow_dispatch` run rebuilds and releases all four projects.
