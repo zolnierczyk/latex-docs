@@ -5,8 +5,6 @@
 # Usage:
 #   ./build.sh                         # build the maintained CV templates
 #   ./build.sh simple plush            # build named templates
-#   ./build.sh latexcv/classic          # build a template by path
-#   ./build.sh latexcv                  # build all latexcv templates
 #   ./build.sh -c | --clean            # remove the build/ output directory
 #
 # Output (PDFs, logs, and LaTeX aux files) goes to cv/build/.
@@ -24,7 +22,7 @@ if [ "$#" -eq 1 ] && { [ "$1" = "-c" ] || [ "$1" = "--clean" ]; }; then
 fi
 
 if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
-    sed -n '1,12p' "$0"
+    sed -n '1,10p' "$PWD/$(basename "$0")"
     exit 0
 fi
 
@@ -36,19 +34,10 @@ fi
 
 # These are document entrypoints; support files and legacy examples are excluded.
 all_templates=(
-    infographics.tex
     libre.tex
-    altacv/mmayer.tex
-    altacv/sample.tex
     plushcv/plush.tex
     simplecv/simple.tex
 )
-while IFS= read -r tex; do
-    all_templates+=("$tex")
-done < <(find latexcv -mindepth 2 -maxdepth 2 -type f -name main.tex -print | sort)
-while IFS= read -r tex; do
-    all_templates+=("$tex")
-done < <(find latexcv/infographics2 -mindepth 2 -maxdepth 2 -type f -name main.tex -print | sort)
 
 resolve_template() {
     local arg="${1#./}"
@@ -62,12 +51,8 @@ resolve_template() {
     done
 
     case "$arg" in
-        alta) printf '%s\n' "altacv/sample.tex" ;;
-        mmayer) printf '%s\n' "altacv/mmayer.tex" ;;
-        sample) printf '%s\n' "altacv/sample.tex" ;;
         plush) printf '%s\n' "plushcv/plush.tex" ;;
         simple) printf '%s\n' "simplecv/simple.tex" ;;
-        latexcv-infographics) printf '%s\n' "latexcv/infographics/main.tex" ;;
         *) return 1 ;;
     esac
 }
@@ -75,15 +60,6 @@ resolve_template() {
 if [ "$#" -gt 0 ]; then
     templates=()
     for arg in "$@"; do
-        if [ "$arg" = "latexcv" ]; then
-            for tex in "${all_templates[@]}"; do
-                case "$tex" in
-                    latexcv/*) templates+=("$tex") ;;
-                esac
-            done
-            continue
-        fi
-
         if ! tex="$(resolve_template "$arg")"; then
             echo "error: unknown CV template '$arg'" >&2
             echo "       pass a template name or path relative to cv/ (see --help)" >&2
