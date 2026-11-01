@@ -6,6 +6,7 @@
 #   ./build.sh                         # build the maintained CV templates
 #   ./build.sh simple plush            # build named templates
 #   ./build.sh latexcv/classic          # build a template by path
+#   ./build.sh latexcv                  # build all latexcv templates
 #   ./build.sh -c | --clean            # remove the build/ output directory
 #
 # Output (PDFs, logs, and LaTeX aux files) goes to cv/build/.
@@ -74,6 +75,15 @@ resolve_template() {
 if [ "$#" -gt 0 ]; then
     templates=()
     for arg in "$@"; do
+        if [ "$arg" = "latexcv" ]; then
+            for tex in "${all_templates[@]}"; do
+                case "$tex" in
+                    latexcv/*) templates+=("$tex") ;;
+                esac
+            done
+            continue
+        fi
+
         if ! tex="$(resolve_template "$arg")"; then
             echo "error: unknown CV template '$arg'" >&2
             echo "       pass a template name or path relative to cv/ (see --help)" >&2
@@ -117,7 +127,7 @@ for tex in "${templates[@]}"; do
     echo "==> Building $tex ($engine)"
     if (
         cd "$source_dir" &&
-        latexmk "$engine_flag" -g -shell-escape -interaction=nonstopmode \
+        latexmk "$engine_flag" -jobname="$name" -g -shell-escape -interaction=nonstopmode \
             -halt-on-error -outdir="$OUTDIR" "$source_file"
     ) >"$OUTDIR/$name.build.log" 2>&1; then
         echo "   ok  -> build/$name.pdf"
